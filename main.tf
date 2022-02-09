@@ -1,4 +1,4 @@
-esource "aws_instance" "new_server" { 
+resource "aws_instance" "new_server" { 
   ami  = var.ami
   instance_type = var.instance_type
   
