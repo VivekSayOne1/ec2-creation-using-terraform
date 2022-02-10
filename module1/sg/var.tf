@@ -10,6 +10,3 @@ variable "availability_zone" {
   description = "aws availability_zone"
 }
 
-variable "a_vpc_id" {
-  description = "new vpc"
-  }
