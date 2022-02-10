@@ -3,13 +3,13 @@ resource "aws_instance" "new_server" {
   instance_type = var.instance_type
   
   for_each = {
-    SG1 = aws_security_group.terraform-security-gp.id
-    SG2 = aws_security_group.terraform-security-gp1.id
+    SG1 = module.SG.sgid
+    SG2 = module.SG.sgid1
     }
   key_name = var.key_name
   tags = var.tags
   subnet_id = module.vpc.subnetid
-  vpc_security_group_ids =  [each.value]
+  vpc_security_group_ids = [each.value]
 
  
   user_data = <<-EOF
@@ -25,58 +25,7 @@ resource "aws_instance" "new_server" {
     
 }
 
-resource "aws_security_group" "terraform-security-gp" {
-   
-   name        = "Terraform-sg" 
-   description = "Allow web inbound traffic"
-   vpc_id = module.vpc.vpcid
 
-
-  
-  dynamic "ingress" {
-    for_each = var.sg_ingress_rules
-    content {
-      from_port   = ingress.value.from_port
-      to_port     = ingress.value.to_port
-      protocol    = ingress.value.protocol
-      cidr_blocks = ingress.value.cidr_blocks
-      description = ingress.value.description
-    }
-  }
-egress {
-  from_port  = 0
-  to_port    = 0
-  protocol   = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
-}
-tags = var.tags
-}
-resource "aws_security_group" "terraform-security-gp1" {
-   
-   name        = "Terraform-sg-1" 
-   description = "Allow web inbound traffic"
-   vpc_id = module.vpc.vpcid
-
-
-  
-  dynamic "ingress" {
-    for_each = var.sg_ingress_rules_1
-    content {
-      from_port   = ingress.value.from_port
-      to_port     = ingress.value.to_port
-      protocol    = ingress.value.protocol
-      cidr_blocks = ingress.value.cidr_blocks
-      description = ingress.value.description
-    }
-  }
-egress {
-  from_port  = 0
-  to_port    = 0
-  protocol   = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
-}
-tags = var.tags
-}
 
 
 resource "aws_eip" "tf-eip" {
@@ -99,3 +48,12 @@ module "vpc" {
  availability_zone = var.availability_zone
 
  }
+module "SG" {
+  source  = "./module1/sg"
+  sg_ingress_rules = var.sg_ingress_rules
+  sg_ingress_rules_1 = var.sg_ingress_rules_1
+  a_vpc_id            =  module.vpc.vpcid
+  availability_zone = var.availability_zone
+   
+}
+
