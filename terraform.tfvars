@@ -1,7 +1,7 @@
-    secret_key        = "m69hOCnc26UZwMHf3Xri8Aejfea6eXdZyhxV2FeK"
-    access_key        = "AKIA4NUOTEE4MTHL5XXZ"
-    ami               = "ami-0851b76e8b1bce90b"
-    key_name          = "terraform"
+    secret_key        = 
+    access_key        = 
+    ami               = 
+    key_name          = 
 
     instance_type     = "t2.micro"
     region            =   "ap-south-1"
