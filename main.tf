@@ -6,7 +6,7 @@ resource "aws_instance" "jenkins_server" {
   tags = var.tags
   subnet_id = module.vpc.subnetid
   vpc_security_group_ids = [module.SG.sgid]
-   #vpc_id            =  module.vpc.vpcid
+  
  
   user_data = <<-EOF
              #!/bin/bash
