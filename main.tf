@@ -53,7 +53,7 @@ module "SG" {
    
 }
 
-/* module "rds" {
+ module "rds" {
    source = "./module/rds"
    security-groupid = module.SG.sgid2
    subnetid      =  module.vpc.subnetid
@@ -67,7 +67,7 @@ module "SG" {
    password             = var.password
    parameter_group_name = var.parameter_group_name
    skip_final_snapshot  = var.skip_final_snapshot
-}*/
+}
 
 module "S3" {
   source = "./module/s3"
