@@ -6,13 +6,6 @@ resource "aws_s3_bucket" "terraform-s3" {
     Environment = "Dev"
   }
 }
-/*
-resource "aws_s3_bucket_acl" "s3-acl" {
-  bucket = aws_s3_bucket.terraform-s3.id
-  acl    = "private"
-}*/
-
-
 
 resource "aws_s3_bucket_website_configuration" "s3-website" {
   bucket = aws_s3_bucket.terraform-s3.bucket
